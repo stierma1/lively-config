@@ -15,6 +15,7 @@ liveConfig.using(... Highest Resolution Priority ...)
           .finalize()
 */
 liveConfig
+  .usingEnvironmentVars()
   .usingFile(path.join(__dirname, "/test.json"))
   .usingHttp("http://ip.jsontest.com/", {}, 60000)
   .finalize();
@@ -33,6 +34,18 @@ liveConfig.ready.then(() => {
 A promise created on construction that resolves after finalize has been invoked and all resolvers have resolved at least once.
 
 ### LivelyConfig Methods
+
+#### getNames()
+Returns an Array of all the key names in the config files
+
+#### getNamedValue(String name)
+Returns the value of the given key name.  If no value is found null will be returned
+
+#### getMaybeNamedValue(String name)
+Returns a wrapped value of the given key name. ({value: foundValue...}) If no value is found null will be returned
+
+#### usingEnvironmentVars(Optional<Number> interval)
+Adds a EnvironmentVarsResolver with given config file to the LivelyConfig and will poll the environment vars if interval is given
 
 #### usingFile(String filePath, Optional<Number> interval)
 Adds a FileSystemResolver with given config file to the LivelyConfig and will poll the file if interval is given
