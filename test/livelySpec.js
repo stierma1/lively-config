@@ -15,4 +15,5 @@ liveConfig.ready.then(() => {
   console.log(liveConfig.getNamedValue("name"))
   console.log(liveConfig.getNamedValue("version"))
   console.log(liveConfig.getNamedValue("ip"))
+  console.log(liveConfig.snapshot().getNamedValue("PATH"))
 });

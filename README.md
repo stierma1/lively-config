@@ -18,6 +18,7 @@ liveConfig
   .usingEnvironmentVars()
   .usingFile(path.join(__dirname, "/test.json"))
   .usingHttp("http://ip.jsontest.com/", {}, 60000)
+  .usingObject({"test":"config"})
   .finalize();
 
 liveConfig.ready.then(() => {
@@ -36,7 +37,7 @@ A promise created on construction that resolves after finalize has been invoked 
 ### LivelyConfig Methods
 
 #### getNames()
-Returns an Array of all the key names in the config files
+Returns an Array of all the key names in LivelyConfig
 
 #### getNamedValue(String name)
 Returns the value of the given key name.  If no value is found null will be returned
@@ -44,14 +45,20 @@ Returns the value of the given key name.  If no value is found null will be retu
 #### getMaybeNamedValue(String name)
 Returns a wrapped value of the given key name. ({value: foundValue...}) If no value is found null will be returned
 
+#### snapshot()
+Returns a livelyConfig clone that contains a snapshot of all current configs.
+
 #### usingEnvironmentVars(Optional<Number> interval)
 Adds a EnvironmentVarsResolver with given config file to the LivelyConfig and will poll the environment vars if interval is given
 
 #### usingFile(String filePath, Optional<Number> interval)
 Adds a FileSystemResolver with given config file to the LivelyConfig and will poll the file if interval is given
 
-#### using Http(String url, Object Headers, Optionsal<Number> interval)
+#### usingHttp(String url, Object Headers, Optional<Number> interval)
 Adds a HttpResolver and will call the url with headers and will poll the file if interval is given
+
+#### usingObject(Object config, Optional<Number> interval)
+Adds an ObjectResolver and use the provided config objects
 
 #### finalize()
 Locks the Resolvers list and will trigger the ready promise after all resolvers have resolved at least once
